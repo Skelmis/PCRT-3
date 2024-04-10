@@ -24,13 +24,10 @@ It can:
 
 ## Install
 
-- #### **Install Python 2.7**
-	- [Python 2.7](https://www.python.org/downloads/)
+- #### **Install Python 3.11**
 
 - #### **Install Python dependency packages**
-	- Tkinter
-	- [PIL](https://pypi.python.org/pypi/PIL/1.1.6)
-	- ctypes (For Windows)
+	- [PIL](https://pypi.python.org/pypi/PIL)
 
 
 - #### **Clone the source code**
@@ -180,56 +177,3 @@ It can:
     -f, --file            Input file name (*.png) [Select from window]
     -o OUTPUT, --output OUTPUT
                           Output repaired file name [Default: output.png]
-
-**[注意]** 如果不添加 `-v` 选项则默认所有IDAT块长度均合法， 即不出现声明的IDAT数据块长度和实际数据长度不符合的情况。
-
-
-## 示例
-
-- Window:
-
-![](http://i.imgur.com/Ksk2ctV.png)
-
-- Linux:
-
-![](http://i.imgur.com/ZXnPqYD.png)
-
-- Mac OS:
-
-![](http://i.imgur.com/re4gQux.png)
-
-## 可能出现的一些问题
-
-- Window下：
-
-> 出现修复后图片无法显示时：
-
-1. 找到Python安装路径下的文件 `X:\Python27\lib\site-packages\PIL\ImageShow.py`
-2. 将在100行左右的代码`return "start /wait %s && ping -n 2 127.0.0.1 >NUL && del /f %s" % (file, file)`注释掉
-3. 添加代码：`return "start /wait %s && PING 127.0.0.1 -n 5 > NUL && del /f %s" % (file, file)`并保存
-4. 重启运行python的IDE
-
-## 更新日志
-
-### version 1.1:
-
-
-**增加：**
-
-- 显示图片文件信息（`-m`）
-- 添加payload到图片文件（`-p`）
-	- 支持添加到辅助块（块名可随机生成或自定义）（`-w 1`）
-	- 支持添加到关键块（仅支持IDAT）(`-w 2`)
-- 解析图片压缩数据并显示（`-d`）
-
-### version 1.0：
-
-**特性：**
-
-- 实现修复PNG文件头错误
-- 实现修复由于错误的图片长度或宽度导致的IHDR块crc校验出错
-- 实现修复由于DOS->UNIX平台自动格式转换导致的部分IDAT块数据长度出错
-- 实现修复由于自身错误导致的IDAT块crc校验出错
-- 实现修复丢失的IEND块
-- 实现提取追加在IEND块后的数据（恶意程序常使用的传播方式）
-- 实现自动显示修复后的图片
